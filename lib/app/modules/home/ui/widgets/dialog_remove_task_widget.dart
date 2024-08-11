@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class RemoveAllTasksComponent extends StatelessWidget {
-  const RemoveAllTasksComponent({super.key});
+class DialogRemoveTaskWidget extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final void Function()? onPressed;
+
+  const DialogRemoveTaskWidget({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -10,22 +19,20 @@ class RemoveAllTasksComponent extends StatelessWidget {
 
     return AlertDialog(
       title: Text(
-        "Atenção!!!",
+        title,
         style: theme.textTheme.titleMedium,
       ),
       content: Text(
-        'Tem certeza que deseja excluir todas as tasks?',
+        subtitle,
         style: theme.textTheme.titleSmall,
       ),
       actions: [
         TextButton(
+          onPressed: onPressed,
           child: Text(
             'Sim',
             style: theme.textTheme.titleSmall,
           ),
-          onPressed: () {
-            Modular.to.pop();
-          },
         ),
         TextButton(
           child: Text(

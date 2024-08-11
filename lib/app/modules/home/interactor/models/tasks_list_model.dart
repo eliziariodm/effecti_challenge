@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:effecti_challenge/app/modules/home/interactor/models/tasks_model.dart';
 
 class TasksListModel {
-  List<TasksModel> tasksList;
+  final List<TasksModel> tasksList;
 
   TasksListModel({required this.tasksList});
 

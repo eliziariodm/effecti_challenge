@@ -1,21 +1,21 @@
 import 'package:effecti_challenge/app/modules/home/interactor/models/tasks_list_model.dart';
-import 'package:effecti_challenge/app/modules/home/interactor/models/tasks_model.dart';
+import 'package:effecti_challenge/app/utils/filter_enum.dart';
 
 sealed class HomeState {
-  final TasksModel tasksModel;
   final TasksListModel tasksListModel;
+  Set<Filter>? selection;
 
-  HomeState(this.tasksModel, this.tasksListModel);
+  HomeState(this.tasksListModel, [this.selection]);
 }
 
 class InitialTasksState extends HomeState {
-  InitialTasksState() : super(TasksModel.empty(), TasksListModel.empty());
+  InitialTasksState() : super(TasksListModel.empty());
 }
 
 class SuccessTasksState extends HomeState {
-  SuccessTasksState(super.tasksModel, super.tasksListModel);
+  SuccessTasksState(super.tasksListModel, [super.selection]);
 }
 
 class ErrorTasksState extends HomeState {
-  ErrorTasksState() : super(TasksModel.empty(), TasksListModel.empty());
+  ErrorTasksState() : super(TasksListModel.empty());
 }

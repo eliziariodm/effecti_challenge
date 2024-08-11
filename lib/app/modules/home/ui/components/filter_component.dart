@@ -1,15 +1,29 @@
+import 'package:effecti_challenge/app/modules/home/interactor/blocs/home_bloc.dart';
+import 'package:effecti_challenge/app/modules/home/interactor/events/home_event.dart';
+import 'package:effecti_challenge/app/modules/home/interactor/models/tasks_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:effecti_challenge/app/utils/filter_enum.dart';
 
 class FilterComponent extends StatefulWidget {
-  const FilterComponent({super.key});
+  final HomeBloc bloc;
+  final TasksListModel tasksList;
+
+  const FilterComponent({
+    super.key,
+    required this.bloc,
+    required this.tasksList,
+  });
 
   @override
   State<FilterComponent> createState() => _FilterComponentState();
 }
 
 class _FilterComponentState extends State<FilterComponent> {
-  Set<Filter> selection = <Filter>{Filter.all};
+  @override
+  void initState() {
+    super.initState();
+    widget.bloc.state.selection = <Filter>{Filter.all};
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +46,16 @@ class _FilterComponentState extends State<FilterComponent> {
             ButtonSegment<Filter>(
                 value: Filter.pending, label: Text('Pendente')),
           ],
-          selected: selection,
+          selected: widget.bloc.state.selection!,
           onSelectionChanged: (Set<Filter> newSelection) {
-            setState(() {
-              selection = newSelection;
-            });
+            widget.bloc.state.selection = newSelection;
+
+            widget.bloc.add(
+              FilteringTasksEvent(
+                widget.tasksList,
+                newSelection,
+              ),
+            );
           },
         ),
       ],

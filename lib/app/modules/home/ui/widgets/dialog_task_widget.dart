@@ -1,20 +1,18 @@
-import 'package:effecti_challenge/app/modules/home/interactor/blocs/home_bloc.dart';
-import 'package:effecti_challenge/app/modules/home/interactor/events/home_event.dart';
 import 'package:effecti_challenge/app/modules/home/ui/widgets/text_input_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 
-class AddTaskComponent extends StatefulWidget {
-  final HomeBloc bloc;
+class DialogTaskWidget extends StatefulWidget {
+  final void Function(String title, String date)? onPressed;
 
-  const AddTaskComponent({super.key, required this.bloc});
+  const DialogTaskWidget({super.key, this.onPressed});
 
   @override
-  State<AddTaskComponent> createState() => _AddTaskComponentState();
+  State<DialogTaskWidget> createState() => _DialogTaskWidgetState();
 }
 
-class _AddTaskComponentState extends State<AddTaskComponent> {
+class _DialogTaskWidgetState extends State<DialogTaskWidget> {
   final _formkey = GlobalKey<FormState>();
 
   String title = '';
@@ -101,15 +99,12 @@ class _AddTaskComponentState extends State<AddTaskComponent> {
           onPressed: () {
             if (_formkey.currentState!.validate()) {
               Modular.to.pop();
-
-              widget.bloc.add(AddingTasksEvent(
+              widget.onPressed!(
                 title,
                 date != null
                     ? dateTextController.text
                     : DateFormat('dd/MM/yyyy').format(DateTime.now()),
-              ));
-
-              return;
+              );
             }
           },
         ),

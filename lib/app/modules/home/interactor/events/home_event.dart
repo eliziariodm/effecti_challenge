@@ -1,12 +1,11 @@
 import 'package:effecti_challenge/app/modules/home/interactor/models/tasks_list_model.dart';
 import 'package:effecti_challenge/app/modules/home/interactor/models/tasks_model.dart';
+import 'package:effecti_challenge/app/utils/filter_enum.dart';
 
 sealed class HomeEvent {}
 
 class LoadTasksEvent extends HomeEvent {
-  final int? initialStep;
-
-  LoadTasksEvent([this.initialStep = 0]);
+  LoadTasksEvent();
 }
 
 class AddingTasksEvent extends HomeEvent {
@@ -17,32 +16,41 @@ class AddingTasksEvent extends HomeEvent {
 }
 
 class EditingTasksEvent extends HomeEvent {
-  final TasksModel tasksModel;
+  final TasksModel task;
+  final int index;
+  final String title;
+  final String date;
 
-  EditingTasksEvent(this.tasksModel);
+  EditingTasksEvent(this.task, this.index, this.title, this.date);
 }
 
 class DeletingTasksEvent extends HomeEvent {
-  final TasksListModel tasksListModel;
-  final String? title;
+  final TasksModel task;
 
-  DeletingTasksEvent(this.tasksListModel, this.title);
+  DeletingTasksEvent(this.task);
 }
 
 class CompletingTasksEvent extends HomeEvent {
-  final TasksModel tasksModel;
+  final TasksModel task;
+  final int index;
 
-  CompletingTasksEvent(this.tasksModel);
+  CompletingTasksEvent(this.task, this.index);
+}
+
+class PendingTasksEvent extends HomeEvent {
+  final TasksModel task;
+  final int index;
+
+  PendingTasksEvent(this.task, this.index);
 }
 
 class FilteringTasksEvent extends HomeEvent {
-  final TasksModel tasksModel;
+  final TasksListModel tasksList;
+  Set<Filter> selection = <Filter>{Filter.all};
 
-  FilteringTasksEvent(this.tasksModel);
+  FilteringTasksEvent(this.tasksList, this.selection);
 }
 
 class DeletingAllTasksEvent extends HomeEvent {
-  final TasksModel tasksModel;
-
-  DeletingAllTasksEvent(this.tasksModel);
+  DeletingAllTasksEvent();
 }
