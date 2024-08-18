@@ -3,13 +3,13 @@ import 'dart:developer';
 
 import 'package:effecti_challenge/app/data/local_storage.dart';
 import 'package:effecti_challenge/app/modules/home/interactor/models/tasks_list_model.dart';
-import 'package:effecti_challenge/app/modules/home/interactor/services/save_tasks_service.dart';
+import 'package:effecti_challenge/app/modules/home/interactor/crud/create_update_tasks.dart';
 import 'package:effecti_challenge/app/utils/local_storage_keys.dart';
 
-class SaveTasksServiceImpl implements SaveTasksService {
+class CreateUpdateTasksImpl implements CreateUpdateTasks {
   final LocalStorage _localStorage;
 
-  SaveTasksServiceImpl(this._localStorage);
+  CreateUpdateTasksImpl(this._localStorage);
 
   @override
   Future<TasksListModel?> call(TasksListModel tasksListModel) async {

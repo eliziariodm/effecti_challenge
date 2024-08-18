@@ -77,6 +77,7 @@ class _ModalComponentState extends State<ModalComponent> {
                 ),
               ),
               child: Text(
+                key: const Key('delete_task'),
                 'Delete Task',
                 style: theme.textTheme.titleSmall,
               ),

@@ -42,11 +42,13 @@ class _HomePageState extends State<HomePage> {
         listener: (context, state) => InitialTasksState,
         builder: (context, state) => Scaffold(
           appBar: AppBar(
+            key: const Key('app_bar'),
             title: const Text(
               'ToDo App',
             ),
             actions: [
               IconButton(
+                key: const Key('button_add'),
                 icon: const Icon(Icons.add),
                 onPressed: () {
                   showDialog(
@@ -62,6 +64,7 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               IconButton(
+                key: const Key('button_remove'),
                 icon: const Icon(Icons.delete),
                 onPressed: () {
                   showDialog(
@@ -83,7 +86,10 @@ class _HomePageState extends State<HomePage> {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                FilterComponent(bloc: _bloc, tasksList: state.tasksListModel),
+                FilterComponent(
+                    key: const Key('filter'),
+                    bloc: _bloc,
+                    tasksList: state.tasksListModel),
                 const SizedBox(height: 30),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.673,
@@ -102,6 +108,7 @@ class _HomePageState extends State<HomePage> {
                                 state.tasksListModel.tasksList[index];
 
                             return ListTile(
+                              key: const Key('open_modal'),
                               title: Text(
                                 task.title,
                                 style: theme.textTheme.bodyMedium,

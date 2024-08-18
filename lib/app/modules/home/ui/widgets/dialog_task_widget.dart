@@ -30,6 +30,7 @@ class _DialogTaskWidgetState extends State<DialogTaskWidget> {
     var theme = Theme.of(context);
 
     return AlertDialog(
+      key: const Key('alert_dialog_add'),
       title: Text(
         "Adicione uma task:",
         style: theme.textTheme.titleSmall,
@@ -43,6 +44,7 @@ class _DialogTaskWidgetState extends State<DialogTaskWidget> {
           child: Column(
             children: [
               TextInputWidget(
+                key: const Key('text_input_add'),
                 label: 'Título',
                 onChanged: (value) {
                   title = value;
@@ -92,6 +94,7 @@ class _DialogTaskWidgetState extends State<DialogTaskWidget> {
           },
         ),
         TextButton(
+          key: const Key('button_text_input_add'),
           child: Text(
             'OK',
             style: theme.textTheme.titleSmall,

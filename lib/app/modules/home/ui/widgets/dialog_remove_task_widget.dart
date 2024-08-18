@@ -18,6 +18,7 @@ class DialogRemoveTaskWidget extends StatelessWidget {
     var theme = Theme.of(context);
 
     return AlertDialog(
+      key: const Key("alert_dialog_remove"),
       title: Text(
         title,
         style: theme.textTheme.titleMedium,
@@ -28,6 +29,7 @@ class DialogRemoveTaskWidget extends StatelessWidget {
       ),
       actions: [
         TextButton(
+          key: const Key("button_delete"),
           onPressed: onPressed,
           child: Text(
             'Sim',
