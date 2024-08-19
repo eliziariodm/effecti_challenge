@@ -51,6 +51,7 @@ class _ModalComponentState extends State<ModalComponent> {
                   context: context,
                   builder: (context) => DialogTaskWidget(
                     question: 'Edite sua tarefa:',
+                    text: widget.task.title,
                     onPressed: (title, date) {
                       widget.bloc.add(
                         EditingTasksEvent(
@@ -113,6 +114,7 @@ class _ModalComponentState extends State<ModalComponent> {
                 ),
               ),
               child: Text(
+                key: const Key('completed_task'),
                 widget.task.isCompleted
                     ? 'Desmarcar como Concluída'
                     : 'Marcar como Concluída',

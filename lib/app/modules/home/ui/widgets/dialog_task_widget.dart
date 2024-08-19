@@ -5,11 +5,13 @@ import 'package:intl/intl.dart';
 
 class DialogTaskWidget extends StatefulWidget {
   final String question;
+  final String? text;
   final void Function(String title, String date)? onPressed;
 
   const DialogTaskWidget({
     super.key,
     this.question = 'Adicione uma tarefa:',
+    this.text,
     this.onPressed,
   });
 
@@ -20,12 +22,22 @@ class DialogTaskWidget extends StatefulWidget {
 class _DialogTaskWidgetState extends State<DialogTaskWidget> {
   final _formkey = GlobalKey<FormState>();
 
-  String title = '';
   DateTime? date;
+  TextEditingController titleTextController = TextEditingController(text: '');
   TextEditingController dateTextController = TextEditingController(text: '');
 
   @override
+  void initState() {
+    super.initState();
+
+    if (widget.question != 'Adicione uma tarefa:') {
+      titleTextController.text = widget.text ?? '';
+    }
+  }
+
+  @override
   void dispose() {
+    titleTextController.dispose();
     dateTextController.dispose();
     super.dispose();
   }
@@ -49,10 +61,11 @@ class _DialogTaskWidgetState extends State<DialogTaskWidget> {
           child: Column(
             children: [
               TextInputWidget(
+                controller: titleTextController,
                 key: const Key('text_input_add'),
                 label: 'Título',
                 onChanged: (value) {
-                  title = value;
+                  titleTextController.text = value;
                 },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -108,7 +121,7 @@ class _DialogTaskWidgetState extends State<DialogTaskWidget> {
             if (_formkey.currentState!.validate()) {
               Modular.to.pop();
               widget.onPressed!(
-                title,
+                titleTextController.text,
                 date != null ? dateTextController.text : '',
               );
             }

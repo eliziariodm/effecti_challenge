@@ -8,8 +8,9 @@ import 'package:integration_test/integration_test.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('testing ModalComponent E2E', () {
-    testWidgets('adding, editing and removing the task', (tester) async {
+  group('testing to do functionality E2E', () {
+    testWidgets('adding, editing, complete and removing the task',
+        (tester) async {
       await tester.pumpWidget(
         ModularApp(
           module: AppModule(),
@@ -45,6 +46,14 @@ void main() {
       await tester.pumpAndSettle();
 
       await tester.tap(find.byKey(const Key("button_text_input_add")));
+
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const Key("open_modal")));
+
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const Key('completed_task')));
 
       await tester.pumpAndSettle();
 
