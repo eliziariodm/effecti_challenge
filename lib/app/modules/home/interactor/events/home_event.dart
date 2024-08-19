@@ -54,3 +54,9 @@ class FilteringTasksEvent extends HomeEvent {
 class DeletingAllTasksEvent extends HomeEvent {
   DeletingAllTasksEvent();
 }
+
+class DueDateTasksEvent extends HomeEvent {
+  final TasksListModel tasksList;
+
+  DueDateTasksEvent(this.tasksList);
+}

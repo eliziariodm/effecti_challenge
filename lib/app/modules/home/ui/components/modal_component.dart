@@ -41,7 +41,8 @@ class _ModalComponentState extends State<ModalComponent> {
                 ),
               ),
               child: Text(
-                'Editar Task',
+                key: const Key('edit_task'),
+                'Editar Tarefa',
                 style: theme.textTheme.titleSmall,
               ),
               onPressed: () async {
@@ -49,6 +50,7 @@ class _ModalComponentState extends State<ModalComponent> {
                 await showDialog(
                   context: context,
                   builder: (context) => DialogTaskWidget(
+                    question: 'Edite sua tarefa:',
                     onPressed: (title, date) {
                       widget.bloc.add(
                         EditingTasksEvent(
@@ -78,7 +80,7 @@ class _ModalComponentState extends State<ModalComponent> {
               ),
               child: Text(
                 key: const Key('delete_task'),
-                'Delete Task',
+                'Deletar Tarefa',
                 style: theme.textTheme.titleSmall,
               ),
               onPressed: () {
@@ -88,7 +90,7 @@ class _ModalComponentState extends State<ModalComponent> {
                   context: context,
                   builder: (context) => DialogRemoveTaskWidget(
                     title: 'Atenção!!!',
-                    subtitle: 'Tem certeza que deseja excluir a task?',
+                    subtitle: 'Tem certeza que deseja excluir a tarefa?',
                     onPressed: () {
                       Modular.to.pop();
                       widget.bloc.add(DeletingTasksEvent(widget.task));

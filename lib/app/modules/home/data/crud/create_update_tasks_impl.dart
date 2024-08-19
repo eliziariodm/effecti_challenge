@@ -14,7 +14,7 @@ class CreateUpdateTasksImpl implements CreateUpdateTasks {
   @override
   Future<TasksListModel?> call(TasksListModel tasksListModel) async {
     try {
-      await _localStorage.setList(
+      await _localStorage.set(
         LocalStorageKeys.tasksList,
         [jsonEncode(tasksListModel.tasksList)],
       );

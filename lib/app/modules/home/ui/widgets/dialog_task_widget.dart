@@ -4,9 +4,14 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 
 class DialogTaskWidget extends StatefulWidget {
+  final String question;
   final void Function(String title, String date)? onPressed;
 
-  const DialogTaskWidget({super.key, this.onPressed});
+  const DialogTaskWidget({
+    super.key,
+    this.question = 'Adicione uma tarefa:',
+    this.onPressed,
+  });
 
   @override
   State<DialogTaskWidget> createState() => _DialogTaskWidgetState();
@@ -32,7 +37,7 @@ class _DialogTaskWidgetState extends State<DialogTaskWidget> {
     return AlertDialog(
       key: const Key('alert_dialog_add'),
       title: Text(
-        "Adicione uma task:",
+        widget.question,
         style: theme.textTheme.titleSmall,
       ),
       contentPadding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -67,7 +72,7 @@ class _DialogTaskWidgetState extends State<DialogTaskWidget> {
                     barrierColor: Colors.transparent,
                     builder: (context) => DatePickerDialog(
                       initialDate: DateTime.now(),
-                      firstDate: DateTime(1992),
+                      firstDate: DateTime.now(),
                       lastDate: DateTime(2030),
                     ),
                   );
@@ -104,9 +109,7 @@ class _DialogTaskWidgetState extends State<DialogTaskWidget> {
               Modular.to.pop();
               widget.onPressed!(
                 title,
-                date != null
-                    ? dateTextController.text
-                    : DateFormat('dd/MM/yyyy').format(DateTime.now()),
+                date != null ? dateTextController.text : '',
               );
             }
           },

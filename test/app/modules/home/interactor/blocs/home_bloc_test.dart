@@ -145,6 +145,20 @@ void main() async {
     );
 
     blocTest<HomeBloc, HomeState>(
+      'should return a due date task',
+      build: () => HomeBloc(dataServiceMock),
+      act: (bloc) => bloc.add(
+        DueDateTasksEvent(taskList),
+      ),
+      setUp: () {
+        when(() => dataServiceMock.createUpdateTasks(taskList)).thenAnswer(
+          (_) async => taskList,
+        );
+      },
+      expect: () => [isA<DueDateTasksState>(), isA<DueDateTasksState>()],
+    );
+
+    blocTest<HomeBloc, HomeState>(
       'should delete all tasks',
       build: () => HomeBloc(dataServiceMock),
       act: (bloc) => bloc.add(DeletingAllTasksEvent()),

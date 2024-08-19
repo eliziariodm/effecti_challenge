@@ -9,7 +9,7 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('testing ModalComponent E2E', () {
-    testWidgets('adding and removing the task', (tester) async {
+    testWidgets('adding, editing and removing the task', (tester) async {
       await tester.pumpWidget(
         ModularApp(
           module: AppModule(),
@@ -27,7 +27,22 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      await Future.delayed(const Duration(seconds: 1));
+      await tester.tap(find.byKey(const Key("button_text_input_add")));
+
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const Key("open_modal")));
+
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byKey(const Key('edit_task')));
+
+      await tester.pumpAndSettle();
+
+      await tester.enterText(
+          find.byKey(const Key('text_input_add')), 'Task Edited');
+
+      await tester.pumpAndSettle();
 
       await tester.tap(find.byKey(const Key("button_text_input_add")));
 
@@ -42,8 +57,6 @@ void main() {
       await tester.pumpAndSettle();
 
       await tester.tap(find.byKey(const Key("button_delete")));
-
-      await tester.pumpAndSettle();
 
       expect(find.byKey(const Key('app_bar')), findsOneWidget);
     });

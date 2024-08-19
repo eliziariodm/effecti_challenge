@@ -4,11 +4,13 @@ class TasksModel {
   final String title;
   final String date;
   final bool isCompleted;
+  final bool isExpired;
 
   TasksModel({
     required this.title,
     required this.date,
     this.isCompleted = false,
+    this.isExpired = false,
   });
 
   factory TasksModel.fromMap(Map<String, dynamic> map) {
@@ -16,6 +18,7 @@ class TasksModel {
       title: map['title'] ?? '',
       date: map['date'] ?? '',
       isCompleted: map['isCompleted'] ?? false,
+      isExpired: map['isExpired'] ?? false,
     );
   }
 
@@ -27,6 +30,7 @@ class TasksModel {
       'title': title,
       'date': date,
       'isCompleted': isCompleted,
+      'isExpired': isExpired,
     };
   }
 
@@ -37,6 +41,7 @@ class TasksModel {
       title: '',
       date: '',
       isCompleted: false,
+      isExpired: false,
     );
   }
 
@@ -44,17 +49,18 @@ class TasksModel {
     String? title,
     String? date,
     bool? isCompleted,
-    String? filter,
+    bool? isExpired,
   }) {
     return TasksModel(
       title: title ?? this.title,
       date: date ?? this.date,
       isCompleted: isCompleted ?? this.isCompleted,
+      isExpired: isExpired ?? this.isExpired,
     );
   }
 
   @override
   String toString() {
-    return 'TasksModel(title: $title, date: $date, isCompleted: $isCompleted)';
+    return 'TasksModel(title: $title, date: $date, isCompleted: $isCompleted, isExpired: $isExpired)';
   }
 }

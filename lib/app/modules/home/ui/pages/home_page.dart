@@ -24,6 +24,8 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _bloc = Modular.get<HomeBloc>()..add(LoadTasksEvent());
+
+    _bloc.add(DueDateTasksEvent(_bloc.state.tasksListModel));
   }
 
   @override
@@ -39,7 +41,35 @@ class _HomePageState extends State<HomePage> {
     return BlocProvider(
       create: (context) => _bloc,
       child: BlocConsumer<HomeBloc, HomeState>(
-        listener: (context, state) => InitialTasksState,
+        listener: (context, state) {
+          if (state is ErrorTasksState) {
+            final snackBar = SnackBar(
+              backgroundColor: theme.colorScheme.error,
+              duration: const Duration(seconds: 3),
+              content: Text(
+                'Você já adicionou uma tarefa com esse nome!!!',
+                style: theme.textTheme.labelSmall,
+              ),
+            );
+
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+
+          if (state is DueDateTasksState) {
+            final snackBar = SnackBar(
+              backgroundColor: theme.colorScheme.error,
+              duration: const Duration(seconds: 3),
+              content: Text(
+                'A tarefa perdeu a validade!',
+                style: theme.textTheme.labelSmall,
+              ),
+            );
+
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          }
+
+          state is InitialTasksState;
+        },
         builder: (context, state) => Scaffold(
           appBar: AppBar(
             key: const Key('app_bar'),
@@ -72,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                     builder: (context) => DialogRemoveTaskWidget(
                       title: 'Atenção!!!',
                       subtitle:
-                          'Tem certeza que deseja excluir todas as tasks?',
+                          'Tem certeza que deseja excluir todas as tarefas?',
                       onPressed: () {
                         Modular.to.pop();
                         _bloc.add(DeletingAllTasksEvent());
@@ -118,7 +148,14 @@ class _HomePageState extends State<HomePage> {
                                 children: [
                                   Text(
                                     task.date,
-                                    style: theme.textTheme.bodySmall,
+                                    style: theme.textTheme.bodySmall?.merge(
+                                      TextStyle(
+                                        color: task.isExpired
+                                            ? theme.colorScheme.error
+                                            : theme
+                                                .colorScheme.secondaryContainer,
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),

@@ -19,3 +19,7 @@ class SuccessTasksState extends HomeState {
 class ErrorTasksState extends HomeState {
   ErrorTasksState() : super(TasksListModel.empty());
 }
+
+class DueDateTasksState extends HomeState {
+  DueDateTasksState(super.tasksListModel, [super.selection]);
+}
