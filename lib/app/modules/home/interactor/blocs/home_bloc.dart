@@ -14,14 +14,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     this._dataService,
   ) : super(InitialTasksState()) {
     on<LoadTasksEvent>(_handleLoadTasks);
-    on<AddingTasksEvent>(_handleAddingTasksEvent);
-    on<EditingTasksEvent>(_handleEditingTasksEvent);
-    on<DeletingTasksEvent>(_handleDeletingTasksEvent);
-    on<CompletingTasksEvent>(_handleCompletingTasksEvent);
-    on<PendingTasksEvent>(_handlePendingTasksEvent);
-    on<FilteringTasksEvent>(_handleFilteringTasksEvent);
-    on<DeletingAllTasksEvent>(_handleDeletingAllTasksEvent);
-    on<DueDateTasksEvent>(_handleDueDateTasksEvent);
+    on<AddingTasksEvent>(_handleAddingTasks);
+    on<EditingTasksEvent>(_handleEditingTasks);
+    on<DeletingTasksEvent>(_handleDeletingTasks);
+    on<CompletingTasksEvent>(_handleCompletingTasks);
+    on<PendingTasksEvent>(_handlePendingTasks);
+    on<FilteringTasksEvent>(_handleFilteringTasks);
+    on<DeletingAllTasksEvent>(_handleDeletingAllTasks);
+    on<DueDateTasksEvent>(_handleDueDateTasks);
   }
 
   TasksListModel _internalTasksListModel = TasksListModel.empty();
@@ -35,7 +35,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(SuccessTasksState(_internalTasksListModel, <Filter>{Filter.all}));
   }
 
-  void _handleAddingTasksEvent(
+  void _handleAddingTasks(
     AddingTasksEvent event,
     Emitter<HomeState> emit,
   ) async {
@@ -58,7 +58,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(SuccessTasksState(_internalTasksListModel, <Filter>{Filter.all}));
   }
 
-  void _handleEditingTasksEvent(
+  void _handleEditingTasks(
     EditingTasksEvent event,
     Emitter<HomeState> emit,
   ) async {
@@ -88,7 +88,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(SuccessTasksState(_internalTasksListModel, <Filter>{Filter.all}));
   }
 
-  void _handleDeletingTasksEvent(
+  void _handleDeletingTasks(
     DeletingTasksEvent event,
     Emitter<HomeState> emit,
   ) async {
@@ -103,7 +103,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(SuccessTasksState(_internalTasksListModel, <Filter>{Filter.all}));
   }
 
-  void _handleCompletingTasksEvent(
+  void _handleCompletingTasks(
     CompletingTasksEvent event,
     Emitter<HomeState> emit,
   ) async {
@@ -128,7 +128,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(SuccessTasksState(_internalTasksListModel, <Filter>{Filter.all}));
   }
 
-  void _handlePendingTasksEvent(
+  void _handlePendingTasks(
     PendingTasksEvent event,
     Emitter<HomeState> emit,
   ) async {
@@ -153,7 +153,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(SuccessTasksState(_internalTasksListModel, <Filter>{Filter.all}));
   }
 
-  void _handleFilteringTasksEvent(
+  void _handleFilteringTasks(
     FilteringTasksEvent event,
     Emitter<HomeState> emit,
   ) async {
@@ -190,7 +190,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
   }
 
-  void _handleDeletingAllTasksEvent(
+  void _handleDeletingAllTasks(
     DeletingAllTasksEvent event,
     Emitter<HomeState> emit,
   ) async {
@@ -203,7 +203,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(SuccessTasksState(_internalTasksListModel, <Filter>{Filter.all}));
   }
 
-  void _handleDueDateTasksEvent(
+  void _handleDueDateTasks(
     DueDateTasksEvent event,
     Emitter<HomeState> emit,
   ) async {
